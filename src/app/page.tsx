@@ -11,14 +11,14 @@ interface Language {
 const languages: Language[] = [
   { id: "python", name: "Python" },
   { id: "javascript", name: "JavaScript" },
-  { id: "java", name: "Java" },
-  { id: "cpp", name: "C++" },
-  { id: "php", name: "PHP" },
-  { id: "ruby", name: "Ruby" },
-  { id: "go", name: "Go" },
-  { id: "swift", name: "Swift" },
-  { id: "kotlin", name: "Kotlin" },
-  { id: "solidity", name: "Solidity" },
+  //{ id: "java", name: "Java" },
+  //{ id: "cpp", name: "C++" },
+  //{ id: "php", name: "PHP" },
+  //{ id: "ruby", name: "Ruby" },
+  //{ id: "go", name: "Go" },
+  //{ id: "swift", name: "Swift" },
+  //{ id: "kotlin", name: "Kotlin" },
+  //{ id: "solidity", name: "Solidity" },
 ];
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
   const evaluate = async () => {
     console.log(username, repository, language);
     try {
-      const response = await fetch(`/api/evaluate?owner=${username}&repo=${repository}&path=${language?.id}`);
+      const response = await fetch(`/api/evaluate/?owner=${username}&repo=${repository}&language=${language?.id}`);
       const data = await response.json();
       console.log(data);
     } catch (error) {
