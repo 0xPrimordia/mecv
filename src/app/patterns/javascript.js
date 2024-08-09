@@ -1,4 +1,6 @@
 import { isHigherOrderComponent } from './javascriptHelpers';
+import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
 
 export const javascriptPatterns = {
   useAst: true,
