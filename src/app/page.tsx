@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Card, Divider, CardHeader, CardFooter, CardBody, Button, Input } from "@nextui-org/react";
+import { Card, Divider, CardHeader, CardFooter, CardBody, Button, Input, Select, SelectItem } from "@nextui-org/react";
+import { fetchUserRepositories } from "@/app/api/evaluate/route";
 
 interface Language {
   id: string;
@@ -26,6 +28,7 @@ export default function Home() {
   const [username, setUsername] = useState("");
   const [repository, setRepository] = useState("");
   const [language, setLanguage] = useState<Language|undefined>(undefined);
+  const [userRepositories, setUserRepositories] = useState<any[]>([]);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -34,6 +37,14 @@ export default function Home() {
     if (urlUsername) setUsername(urlUsername);
     if (urlRepo) setRepository(urlRepo);
   }, [searchParams]);
+
+  useEffect(() => {
+    const getUserRepositories = async () => {
+        const userRepositories = await fetchUserRepositories(username);
+        setUserRepositories(userRepositories);
+    };
+    getUserRepositories();
+}, [username]);
 
   const selectLanguage = (e: any) => {
     if(!e) return;
@@ -72,17 +83,24 @@ export default function Home() {
         className="mb-10"
       />
       <Card className="w-[450px]">
-        <CardHeader className="flex gap-3">
-          <h1 className="pl-2 font-bold">Github Evaluator</h1>
-        </CardHeader>
-        <Divider />
         <CardBody className="gap-3">
           <Input placeholder="Enter your GitHub username" label="GitHub Username" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <Input placeholder="Enter your GitHub repository" label="GitHub Repository" type="text" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)} />
+          {(userRepositories && userRepositories.length > 0) && (
+            <Select placeholder="Select a repository" label="Evaluate Repository" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)}>
+              {userRepositories.map((repository) => (
+                <SelectItem key={repository.id} value={repository.name}>{repository.name}</SelectItem>
+              ))}
+            </Select>
+          )}
         </CardBody>
         <Divider />
-        <CardFooter>
-          <Button color="primary" className="w-full" onClick={evaluate}>Evaluate</Button>
+        <CardFooter className="flex flex-col text-center gap-3">
+          {(username && repository) && (
+            <Button color="primary" className="w-full" onClick={evaluate}>Evaluate</Button>
+          )}
+          {(username) && (
+            <Link className="w-full underline text-xs" href={`/user/${username}`}>View Profile</Link>
+          )}
         </CardFooter>
       </Card>
     </main>
