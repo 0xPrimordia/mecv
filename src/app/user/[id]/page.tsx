@@ -148,7 +148,7 @@ export default function UserPage({ params }: Props) {
                                     </CardBody>
                                     <Divider />
                                     <CardFooter>
-                                        <div className="flex justify-between gap-2">
+                                        <div className={`flex justify-between gap-2 ${index >= 4 ? 'opacity-0 z-[0]' : ''}`}>
                                             <Button radius="sm" className="text-xs px-0 py-0" onClick={() => window.location.href = `/?username=${user.login}&repo=${repository.name}`}>Evaluate</Button>
                                             <span className="text-sm">{repository.language}</span>
                                             
@@ -158,7 +158,7 @@ export default function UserPage({ params }: Props) {
                             ))} 
                         </div>
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
-                            <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold">Claim Your Account</Button>
+                            <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Account</Button>
                             <p className="italic">If you have a GitHub account, connect to claim your free MeCV profile (more git options coming soon).</p>
                             <p className="italic">Once connected you can select which repositories to feature, filter, sort and much more...</p>
                         </div>
