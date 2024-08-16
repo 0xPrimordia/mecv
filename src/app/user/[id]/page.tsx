@@ -64,7 +64,7 @@ export default function UserPage({ params }: Props) {
                         ))}
                     </div>
                     <div className="flex gap-4">
-                        <Card className="w-[380px]">
+                        <Card shadow="sm" className="w-[380px]">
                             <CardHeader className="flex gap-3">
                             <Image src={user.avatar_url} alt={user.login} width={40} height={40} />
                             <div className="flex flex-col">
@@ -138,7 +138,7 @@ export default function UserPage({ params }: Props) {
                         <h3 className="font-bold my-4">Repositories</h3>
                         <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
                             {userRepositories?.map((repository: any, index: number) => (
-                                <Card shadow="sm" isPressable={index < 4} className={`w-[250px] mb-4 ${index >= 4 ? 'opacity-20 z-[0]' : ''}`} key={repository.id}>
+                                <Card shadow="none" isPressable={index < 4} className={`w-[250px] mb-4 ${index >= 4 ? 'opacity-20 z-[0]' : ''}`} key={repository.id}>
                                     <CardHeader className="flex flex-col">
                                         <h3 className="text-sm"><span className="font-bold">{repository.name}</span></h3> 
                                     </CardHeader>
