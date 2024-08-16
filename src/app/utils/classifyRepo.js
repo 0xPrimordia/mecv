@@ -2,6 +2,7 @@ import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 
 import { javascriptPatterns } from '../patterns/javascript';
+import { pythonPatterns } from '../patterns/python';
 
 const languagePatterns = {
     javascript: javascriptPatterns,

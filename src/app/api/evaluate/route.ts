@@ -1,11 +1,23 @@
+import { NextResponse } from 'next/server';
 import { classifyRepo } from '../../utils/classifyRepo';
 import { detectLanguages, languageExtensions } from '../../languages/detect';
+import { Octokit } from 'octokit';
 import axios from 'axios';
 
 type LanguageKey = keyof typeof languageExtensions;
 
+const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+
+const octokit = new Octokit({
+  auth: GITHUB_TOKEN
+})
+
 async function parseFiles(data:any, extensions:Array<string>|null, fetchContent:boolean) {
     let files:Array<any> = [];
+    if (!Array.isArray(data)) {
+        console.error('Unexpected response format from GitHub API');
+        return [];
+    }
     for (const item of data) {
         if (item.type === 'file' && (!extensions || extensions.some(ext => item.name.endsWith(ext)))) {
             if (fetchContent) {
@@ -36,34 +48,102 @@ async function fetchFileContent(file:any) {
     }
 }
 
-export async function fetchRepo(owner:string, repo:string, extensions:Array<any>|null) {
-    let files:Array<any> = [];
+export async function fetchRepo(owner: string, repo: string, extensions: Array<string> | null) {
+    let files: Array<any> = [];
     try {
-        const response = await fetch(`/api/github/?owner=${owner}&repo=${repo}&path=null`);
-        const data = await response.json();
-        console.log(data);
-        files = await parseFiles(data, null, true);
-    } catch (error) {
-        console.error(error);
+        const response = await octokit.request('GET /repos/{owner}/{repo}/contents', {
+            owner: owner,
+            repo: repo,
+            headers: {
+                'X-GitHub-Api-Version': '2022-11-28',
+                'Authorization': `token ${GITHUB_TOKEN}`
+            }
+        });
+        const data = await response.data;
+        
+        
+        if (!Array.isArray(data)) {
+            console.error('Unexpected response format from GitHub API');
+            return [];
+        }
+        
+        files = await parseFiles(data, extensions, true);
+       
+    } catch (error: any) {
+        console.error('Error in fetchRepo:', error.message);
+        throw error;
     }
     return files;
 }
 
-export default async function handler(req:any, res:any) {
-  const { owner, repo, language } = req.query;
+export async function fetchUser(username:string) {
+
+  try {
+    const response = await octokit.request('GET /users/{username}', {
+      username: username,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Authorization': `token ${GITHUB_TOKEN}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function fetchUserRepositories(username:string) {
+  try {
+    const response = await octokit.request('GET /users/{username}/repos?per_page=8', {
+      username: username,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Authorization': `token ${GITHUB_TOKEN}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function fetchUserGists(username:string) {
+  try {
+    const response = await octokit.request('GET /users/{username}/gists', {
+      username: username,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Authorization': `token ${GITHUB_TOKEN}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function POST(req: Request) {
+  const body = await req.json();
+  const { owner, repo } = body;
 
   if (!owner || !repo) {
-    return res.status(400).json({ error: 'Missing required parameters' });
+    return NextResponse.json({ error: 'Missing required parameters' });
   }
 
   try {
     const files = await fetchRepo(owner, repo, null);
 
-    console.log(`Fetched files: ${JSON.stringify(files, null, 2)}`);
+    if (files.length === 0) {
+      return NextResponse.json({ error: 'No files found' });
+    }
+    console.log('Files:', files.map(f => f.name).join(', '));
+    let languages = detectLanguages(files);
+    console.log(`Detected languages: ${languages.join(', ')}`);
 
-    let languages = language ? [language] : detectLanguages(files);
     if (languages.length === 0) {
-      return res.status(400).json({ error: 'Unable to detect language' });
+      console.log('File extensions:', files.map(f => f.name.split('.').pop()).join(', '));
+      return NextResponse.json({ error: 'Unable to detect language' });
     }
 
     const results = [];
@@ -73,9 +153,9 @@ export default async function handler(req:any, res:any) {
       results.push({ language: lang, classification: level, elements });
     }
 
-    res.status(200).json({ results });
+    return NextResponse.json({ results });
   } catch (error:any) {
     console.error('Error during evaluation:', error.message);
-    res.status(500).json({ error: error.message });
+    return NextResponse.json({ error: error.message });
   }
 }

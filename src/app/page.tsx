@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Card, Divider, CardHeader, CardFooter, CardBody, Button, Input, Autocomplete, AutocompleteItem } from "@nextui-org/react";
+import { Card, Divider, CardHeader, CardFooter, CardBody, Button, Input } from "@nextui-org/react";
 
 interface Language {
   id: string;
@@ -25,6 +26,14 @@ export default function Home() {
   const [username, setUsername] = useState("");
   const [repository, setRepository] = useState("");
   const [language, setLanguage] = useState<Language|undefined>(undefined);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const urlUsername = searchParams.get('username');
+    const urlRepo = searchParams.get('repo');
+    if (urlUsername) setUsername(urlUsername);
+    if (urlRepo) setRepository(urlRepo);
+  }, [searchParams]);
 
   const selectLanguage = (e: any) => {
     if(!e) return;
@@ -34,9 +43,18 @@ export default function Home() {
   }
 
   const evaluate = async () => {
-    console.log(username, repository, language);
     try {
-      const response = await fetch(`/api/evaluate/?owner=${username}&repo=${repository}&language=${language?.id}`);
+      const response = await fetch(`/api/evaluate/?owner=${username}&repo=${repository}`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ owner: username, repo: repository })
+      });
+    
+      if (!response.ok) {
+        throw new Error('Failed to evaluate repository');
+      }
       const data = await response.json();
       console.log(data);
     } catch (error) {
@@ -60,16 +78,7 @@ export default function Home() {
         <Divider />
         <CardBody className="gap-3">
           <Input placeholder="Enter your GitHub username" label="GitHub Username" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <Input placeholder="Enter your GitHub repository" label="GitHub Repository" type="text" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)} />    
-          <Autocomplete
-            defaultItems={Object.values(languages) as Language[]}
-            label="Select Language"
-            placeholder="Search Language"
-            onSelectionChange={(e) => selectLanguage(e)}
-            className="mb-6"
-          >
-              {(language:Language) => <AutocompleteItem key={language.id}>{language.name}</AutocompleteItem>}
-          </Autocomplete>
+          <Input placeholder="Enter your GitHub repository" label="GitHub Repository" type="text" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)} />
         </CardBody>
         <Divider />
         <CardFooter>

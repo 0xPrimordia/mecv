@@ -3,15 +3,15 @@ import path from 'path';
 export const languageExtensions = {
   javascript: ['.js', '.jsx', '.ts', '.tsx'],
   python: ['.py'],
-  //java: ['.java'],
-  //csharp: ['.cs'],
-  //cpp: ['.cpp', '.hpp'],
-  //php: ['.php'],
-  //ruby: ['.rb'],
-  //go: ['.go'],
-  //swift: ['.swift'],
-  //kotlin: ['.kt'],
-  //solidity: ['.sol']
+  java: ['.java'],
+  csharp: ['.cs'],
+  cpp: ['.cpp', '.hpp'],
+  php: ['.php'],
+  ruby: ['.rb'],
+  go: ['.go'],
+  swift: ['.swift'],
+  kotlin: ['.kt'],
+  solidity: ['.sol']
 };
 
 export function detectLanguages(files) {
