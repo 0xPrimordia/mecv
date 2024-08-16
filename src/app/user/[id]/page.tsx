@@ -69,7 +69,14 @@ export default function UserPage({ params }: Props) {
                             <Image src={user.avatar_url} alt={user.login} width={55} height={55} />
                             <div className="flex flex-col">
                                 <h4 className="text-lg">{user.name}</h4>
-                                <span className="text-xs"><Link className="underline text-blue-500" href={`/company/${user.company?.replace(/^@/, '')}`}>{user.company}</Link></span>
+                                
+                                {user.company && user.company.startsWith('@') && (
+                                  <span className="text-xs">
+                                    <Link className="underline text-blue-500" href={`/company/${user.company.replace(/^@/, '')}`}>
+                                      {user.company}
+                                    </Link>
+                                  </span>
+                                )}
                                 <span className="text-xs">{user?.location}</span>
                             </div>
                         </CardHeader>
@@ -105,7 +112,7 @@ export default function UserPage({ params }: Props) {
                                 <CardBody>
                                     <CardHeader className="flex flex-col">
                                     {(!userGists || userGists?.length === 0) && (
-                                        <h3 className="font-bold">You Don't even GIST, bro?</h3>
+                                        <h3 className="font-bold">You don't even GIST, bro?</h3>
                                     )}
                                     {userGists && userGists.length > 0 && (
                                         
@@ -145,13 +152,12 @@ export default function UserPage({ params }: Props) {
                                     <Divider />
                                     <CardBody>
                                         <span className="text-sm">{repository.description}</span>
+                                        <span className="text-sm">{repository.language}</span>
                                     </CardBody>
                                     <Divider />
                                     <CardFooter>
-                                        <div className={`flex justify-between gap-2 ${index >= 4 ? 'opacity-0 z-[0]' : ''}`}>
-                                            <Button radius="sm" className="text-xs px-0 py-0" onClick={() => window.location.href = `/?username=${user.login}&repo=${repository.name}`}>Evaluate</Button>
-                                            <span className="text-sm">{repository.language}</span>
-                                            
+                                        <div className={`${index >= 4 ? 'opacity-0 z-[0]' : ''}`}>
+                                            <Button radius="sm" variant="bordered" className="text-xs px-0 py-0 text-gray-400" onClick={() => window.location.href = `/?username=${user.login}&repo=${repository.name}`}>Evaluate</Button>
                                         </div>
                                     </CardFooter>
                                 </Card>
