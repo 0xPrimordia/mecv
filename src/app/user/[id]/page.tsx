@@ -95,7 +95,7 @@ export default function UserPage({ params }: Props) {
                         </CardBody>
                       
                         <CardFooter>
-                            <Button variant="bordered" className="w-fit">Claim Your Account</Button>
+                            <Button variant="bordered" className="w-fit">Claim Your Profile</Button>
                         </CardFooter>
                      </Card>
 
@@ -158,7 +158,7 @@ export default function UserPage({ params }: Props) {
                             ))} 
                         </div>
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
-                            <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Account</Button>
+                            <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Profile</Button>
                             <p className="italic">If you have a GitHub account, connect to claim your free MeCV profile (more git options coming soon).</p>
                             <p className="italic">Once connected you can select which repositories to feature, filter, sort and much more...</p>
                         </div>
