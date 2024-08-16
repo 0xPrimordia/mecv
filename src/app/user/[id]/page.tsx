@@ -99,7 +99,7 @@ export default function UserPage({ params }: Props) {
                         </CardBody>
                       
                         <CardFooter>
-                            <Button className="w-fit bg-black text-white">Claim Your Account</Button>
+                            <Button variant="bordered" className="w-fit">Claim Your Account</Button>
                         </CardFooter>
                      </Card>
                     </div>
@@ -136,6 +136,21 @@ export default function UserPage({ params }: Props) {
 
                     <div>
                         <h3 className="font-bold my-4">Gists</h3>
+                        {(!userGists || userGists.length === 0) && (
+                            <Card className="w-[400px]">
+                                <CardBody>
+                                    <CardHeader>
+                                        <h3 className="font-bold">You don't even gist, bro?</h3>
+                                    </CardHeader>
+                                    <CardBody>
+                                        <p className="text-sm">Sign-up to indentify Gists you already have in your codebase.</p>
+                                    </CardBody>
+                                    <CardFooter>
+                                        <Button className="bg-black text-white">Premium Profile</Button>
+                                    </CardFooter>
+                                </CardBody>
+                            </Card>
+                        )}
                         {userGists?.map((gist: any) => (
                             <div key={gist.id}>
                                 <h4>{gist.description}</h4>
