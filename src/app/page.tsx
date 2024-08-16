@@ -1,10 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Card, Divider, CardHeader, CardFooter, CardBody, Button, Input, Select, SelectItem } from "@nextui-org/react";
-import { fetchUserRepositories } from "@/app/api/evaluate/route";
+import { fetchUserRepositories } from "@/app/utils/githubApi";
 
 interface Language {
   id: string;
@@ -24,7 +24,7 @@ const languages: Language[] = [
   //{ id: "solidity", name: "Solidity" },
 ];
 
-export default function Home() {
+function HomeContent() {
   const [username, setUsername] = useState("");
   const [urlUsername, setUrlUsername] = useState<any>("");
   const [urlRepository, setUrlRepository] = useState<any>("");
@@ -115,5 +115,13 @@ export default function Home() {
         </CardFooter>
       </Card>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }

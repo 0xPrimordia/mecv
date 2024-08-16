@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, CardHeader, CardFooter, CardBody, Divider, Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchCompany, fetchOrganizationRpositories } from "@/app/api/evaluate/route";
+import { fetchCompany, fetchOrganizationRpositories } from "@/app/utils/githubApi";
 
 type Props = {
     params: {

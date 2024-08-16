@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchUser, fetchUserRepositories, fetchUserGists } from "@/app/api/evaluate/route";
+import { fetchUser, fetchUserRepositories, fetchUserGists } from "@/app/utils/githubApi";
 
 type Props = {
     params: { id: string }
@@ -112,7 +112,7 @@ export default function UserPage({ params }: Props) {
                                 <CardBody>
                                     <CardHeader className="flex flex-col">
                                     {(!userGists || userGists?.length === 0) && (
-                                        <h3 className="font-bold">You don't even GIST, bro?</h3>
+                                        <h3 className="font-bold">You don&apos;t even GIST, bro?</h3>
                                     )}
                                     {userGists && userGists.length > 0 && (
                                         
