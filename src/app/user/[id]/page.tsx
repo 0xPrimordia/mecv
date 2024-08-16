@@ -69,7 +69,7 @@ export default function UserPage({ params }: Props) {
                             <Image src={user.avatar_url} alt={user.login} width={55} height={55} />
                             <div className="flex flex-col">
                                 <h4 className="text-lg">{user.name}</h4>
-                                <span className="text-xs"><Link className="underline text-blue-500" href="#">{user.company}</Link></span>
+                                <span className="text-xs"><Link className="underline text-blue-500" href={`/company/${user.company?.replace(/^@/, '')}`}>{user.company}</Link></span>
                                 <span className="text-xs">{user?.location}</span>
                             </div>
                         </CardHeader>

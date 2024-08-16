@@ -107,7 +107,7 @@ export default function CompanyPage({ params }: Props) {
                         </div>
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
                             <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Dashboard</Button>
-                            <p className="italic max-w-xl text-center">Claim your dashboard to scan code difficulty, connect with your GitHub issues with qualified developers and keep your projects moving.</p>
+                            <p className="italic max-w-xl text-center">Claim your dashboard to scan code difficulty, connect your GitHub issues with qualified developers and keep your projects moving.</p>
                            
                         </div>
                     </div>
