@@ -59,7 +59,7 @@ export default function UserPage({ params }: Props) {
                 <>
                     <h1 className="font-bold text-2xl my-4">@{user.login}</h1>
                     <div className="flex gap-4">
-                        <Card className="w-[400px]">
+                        <Card className="w-[380px]">
                             <CardHeader className="flex gap-3">
                             <Image src={user.avatar_url} alt={user.login} width={40} height={40} />
                             <div className="flex flex-col">
@@ -71,7 +71,7 @@ export default function UserPage({ params }: Props) {
                         <Divider />
                         <CardBody>
                             <h3>About {user.name}:</h3>
-                            {user.bio ? <p>{user.bio}</p> : <p className="text-gray-500 italic">No bio available from GitHub.</p>}
+                            {user.bio ? <p>{user.bio}</p> : <p className="text-gray-500 italic">No bio available from GitHub. Sign-up to generate one from your commit history. <a className="underline" href="#">Premium Account</a></p>}
                         </CardBody>
                         <Divider />
                         <CardFooter>
