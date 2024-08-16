@@ -103,6 +103,9 @@ export default function Home() {
         </CardBody>
         <Divider />
         <CardFooter className="flex flex-col text-center gap-3">
+          {(!username && !repository && (
+            <p className="text-gray-300 italic">Enter any valid GitHub username to get started.</p>
+          ))}
           {(username && repository) && (
             <Button color="primary" className="w-full" onClick={evaluate}>Evaluate</Button>
           )}
