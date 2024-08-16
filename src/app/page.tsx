@@ -96,7 +96,7 @@ export default function Home() {
           {(!urlRepository && userRepositories && userRepositories.length > 0) && (
             <Select placeholder="Select a repository" label="Evaluate Repository" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)}>
               {userRepositories.map((repository) => (
-                <SelectItem key={repository.id} value={repository.name}>{repository.name}</SelectItem>
+                <SelectItem key={repository.name} value={repository.name}>{repository.name}</SelectItem>
               ))}
             </Select>
           )}
