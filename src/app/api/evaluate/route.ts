@@ -110,7 +110,7 @@ export async function fetchUserRepositories(username:string) {
 
 export async function fetchUserGists(username:string) {
   try {
-    const response = await octokit.request('GET /users/{username}/gists', {
+    const response = await octokit.request('GET /users/{username}/gists?per_page=4', {
       username: username,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',

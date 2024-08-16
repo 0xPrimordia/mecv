@@ -58,6 +58,11 @@ export default function UserPage({ params }: Props) {
             ) : (
                 <>
                     <h1 className="font-bold text-2xl my-4">@{user.login}</h1>
+                    <div className="flex flex-wrap mb-6">
+                        {userLanguages?.map((language: string) => (
+                            <span key={language} className={`text-sm w-fit inline-block rounded-full px-2 py-1 mr-2 text-white mb-2 ${language === 'JavaScript' ? 'bg-blue-500' : 'bg-gray-400'}`}>{language}</span>
+                        ))}
+                    </div>
                     <div className="flex gap-4">
                         <Card className="w-[380px]">
                             <CardHeader className="flex gap-3">
@@ -71,7 +76,7 @@ export default function UserPage({ params }: Props) {
                         <Divider />
                         <CardBody>
                             <h3>About {user.name}:</h3>
-                            {user.bio ? <p>{user.bio}</p> : <p className="text-gray-500 italic">No bio available from GitHub. Sign-up to generate one from your commit history. <a className="underline" href="#">Premium Account</a></p>}
+                            {user.bio ? <p>{user.bio}</p> : <p className="text-gray-500 italic">No bio available from GitHub. Sign-up to generate one from your commit history.<br/><br/><a className="underline" href="#">Premium Account</a></p>}
                         </CardBody>
                         <Divider />
                         <CardFooter>
@@ -94,15 +99,35 @@ export default function UserPage({ params }: Props) {
                         </CardFooter>
                      </Card>
 
-                     <Card shadow="none" className="max-w-[500px] bg-transparent">
-                        <CardBody>
-                            <div className="flex flex-wrap">
-                                {userLanguages?.map((language: string) => (
-                                    <span key={language} className={`text-sm w-fit inline-block rounded-full px-2 py-1 mr-2 text-white mb-2 ${language === 'JavaScript' ? 'bg-blue-500' : 'bg-gray-400'}`}>{language}</span>
-                                ))}
-                            </div>
-                        </CardBody>
-                     </Card>
+                     <div>
+                        
+                            <Card shadow="none" className="w-[400px] bg-transparent">
+                                <CardBody>
+                                    <CardHeader className="flex flex-col">
+                                    {(!userGists || userGists?.length === 0) && (
+                                        <h3 className="font-bold">YOU DON'T EVEN GIST, BRO?</h3>
+                                    )}
+                                    {userGists && (
+                                        
+                                        <h3 className="font-bold text-3xl mb-2">You have gists</h3>
+                            
+                                       
+                                    )}
+                                    </CardHeader>
+           
+                                    <CardBody>
+
+                                        
+                                            <p className="text-sm italic">Sign-up to indentify and feature Gists you already have in your codebase.</p>
+                                        
+                                    </CardBody>
+                                </CardBody>
+                            </Card>
+                        
+                        
+                    </div>
+
+                    
                     </div>
                         
                     <div>
@@ -135,29 +160,7 @@ export default function UserPage({ params }: Props) {
                         </div>
                     </div>
 
-                    <div>
-                        <h3 className="font-bold my-4">Gists</h3>
-                        {(!userGists || userGists.length === 0) && (
-                            <Card className="w-[400px]">
-                                <CardBody>
-                                    <CardHeader>
-                                        <h3 className="font-bold">You don't even gist, bro?</h3>
-                                    </CardHeader>
-                                    <CardBody>
-                                        <p className="text-sm">Sign-up to indentify Gists you already have in your codebase.</p>
-                                    </CardBody>
-                                    <CardFooter>
-                                        <Button className="bg-black text-white">Premium Profile</Button>
-                                    </CardFooter>
-                                </CardBody>
-                            </Card>
-                        )}
-                        {userGists?.map((gist: any) => (
-                            <div key={gist.id}>
-                                <h4>{gist.description}</h4>
-                            </div>
-                        ))}
-                    </div>
+                    
                 </>
             )}
             </>
