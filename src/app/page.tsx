@@ -26,6 +26,8 @@ const languages: Language[] = [
 
 export default function Home() {
   const [username, setUsername] = useState("");
+  const [urlUsername, setUrlUsername] = useState<any>("");
+  const [urlRepository, setUrlRepository] = useState<any>("");
   const [repository, setRepository] = useState("");
   const [language, setLanguage] = useState<Language|undefined>(undefined);
   const [userRepositories, setUserRepositories] = useState<any[]>([]);
@@ -34,6 +36,7 @@ export default function Home() {
   useEffect(() => {
     const urlUsername = searchParams.get('username');
     const urlRepo = searchParams.get('repo');
+    setUrlRepository(urlRepo);
     if (urlUsername) setUsername(urlUsername);
     if (urlRepo) setRepository(urlRepo);
   }, [searchParams]);
@@ -83,9 +86,14 @@ export default function Home() {
         className="mb-10"
       />
       <Card className="w-[450px]">
+        {(urlRepository) && (
+          <CardHeader className="flex flex-col gap-3">
+            <p className="text-sm text-gray-500">Evaluating {urlRepository}</p>
+          </CardHeader>
+        )}
         <CardBody className="gap-3">
           <Input placeholder="Enter your GitHub username" label="GitHub Username" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          {(userRepositories && userRepositories.length > 0) && (
+          {(!urlRepository && userRepositories && userRepositories.length > 0) && (
             <Select placeholder="Select a repository" label="Evaluate Repository" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)}>
               {userRepositories.map((repository) => (
                 <SelectItem key={repository.id} value={repository.name}>{repository.name}</SelectItem>
