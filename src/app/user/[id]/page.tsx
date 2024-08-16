@@ -105,11 +105,11 @@ export default function UserPage({ params }: Props) {
                                 <CardBody>
                                     <CardHeader className="flex flex-col">
                                     {(!userGists || userGists?.length === 0) && (
-                                        <h3 className="font-bold">YOU DON'T EVEN GIST, BRO?</h3>
+                                        <h3 className="font-bold">You Don't even GIST, bro?</h3>
                                     )}
-                                    {userGists && (
+                                    {userGists && userGists.length > 0 && (
                                         
-                                        <h3 className="font-bold text-3xl mb-2">You have gists</h3>
+                                        <h3 className="font-bold text-3xl mb-2">You have gists. Want more?</h3>
                             
                                        
                                     )}
@@ -121,6 +121,10 @@ export default function UserPage({ params }: Props) {
                                             <p className="text-sm italic">Sign-up to indentify and feature Gists you already have in your codebase.</p>
                                         
                                     </CardBody>
+                         
+                                    <CardFooter className="flex justify-end">
+                                        <Button className="bg-black text-white">Sign-up for Premium</Button>
+                                    </CardFooter>
                                 </CardBody>
                             </Card>
                         
