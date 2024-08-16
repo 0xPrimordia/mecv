@@ -79,15 +79,6 @@ export default function UserPage({ params }: Props) {
                             <span className="inline-block"> following: <span className="font-bold">{user?.following}</span></span>
                         </CardFooter>
                     </Card>
-                    <Card shadow="none" className="max-w-[500px] bg-transparent">
-                        <CardBody>
-                            <div className="flex flex-wrap">
-                                {userLanguages?.map((language: string) => (
-                                    <span key={language} className={`text-sm w-fit inline-block rounded-full px-2 py-1 mr-2 text-white mb-2 ${language === 'JavaScript' ? 'bg-blue-500' : 'bg-gray-400'}`}>{language}</span>
-                                ))}
-                            </div>
-                        </CardBody>
-                     </Card>
 
                      <Card shadow="none" className="w-[400px] bg-transparent border-solid border-4 border-gray-300">
                         <CardHeader>
@@ -101,6 +92,16 @@ export default function UserPage({ params }: Props) {
                         <CardFooter>
                             <Button variant="bordered" className="w-fit">Claim Your Account</Button>
                         </CardFooter>
+                     </Card>
+
+                     <Card shadow="none" className="max-w-[500px] bg-transparent">
+                        <CardBody>
+                            <div className="flex flex-wrap">
+                                {userLanguages?.map((language: string) => (
+                                    <span key={language} className={`text-sm w-fit inline-block rounded-full px-2 py-1 mr-2 text-white mb-2 ${language === 'JavaScript' ? 'bg-blue-500' : 'bg-gray-400'}`}>{language}</span>
+                                ))}
+                            </div>
+                        </CardBody>
                      </Card>
                     </div>
                         
