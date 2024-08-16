@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Card, CardHeader, CardFooter, CardBody, Divider, Button } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchUser, fetchUserRepositories, fetchUserGists } from "@/app/api/evaluate/route";
@@ -91,7 +91,7 @@ export default function UserPage({ params }: Props) {
                         </CardHeader>
                       
                         <CardBody>
-                            <p className="text-sm">Connect GitHub to mint your skill level across many languages and every single commit in your history (including past private repos) based on <Link className="underline text-blue-500" href="#">Patterns</Link>.</p>
+                            <p className="text-sm">Connect GitHub to mint your skill level across many languages and every single commit in your history (including past private repos) based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-blue-500">Patterns</span></Tooltip>.</p>
                         </CardBody>
                       
                         <CardFooter>
