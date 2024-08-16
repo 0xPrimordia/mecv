@@ -66,7 +66,7 @@ export default function UserPage({ params }: Props) {
                     <div className="flex gap-4">
                         <Card shadow="sm" className="w-[380px]">
                             <CardHeader className="flex gap-3">
-                            <Image src={user.avatar_url} alt={user.login} width={40} height={40} />
+                            <Image src={user.avatar_url} alt={user.login} width={55} height={55} />
                             <div className="flex flex-col">
                                 <h4 className="text-lg">{user.name}</h4>
                                 <span className="text-xs"><Link className="underline text-blue-500" href="#">{user.company}</Link></span>
@@ -91,7 +91,7 @@ export default function UserPage({ params }: Props) {
                         </CardHeader>
                       
                         <CardBody>
-                            <span className="text-sm">Connect GitHub to mint your skill level across many languages based on <Link className="underline text-blue-500" href="#">Patterns</Link>.</span>
+                            <p className="text-sm">Connect GitHub to mint your skill level across many languages and every single commit in your history (including past private repos) based on <Link className="underline text-blue-500" href="#">Patterns</Link>.</p>
                         </CardBody>
                       
                         <CardFooter>
