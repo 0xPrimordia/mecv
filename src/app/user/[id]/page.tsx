@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip, Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchUser, fetchUserRepositories, fetchUserGists } from "@/app/utils/githubApi";
@@ -154,7 +154,9 @@ export default function UserPage({ params }: Props) {
                                     <Divider />
                                     <CardBody>
                                         <span className="text-sm">{repository.description}</span>
-                                        <span className="text-sm">{repository.language}</span>
+                                        {repository.language && (
+                                            <Chip className="mt-2" size="sm" color="primary">{repository.language}</Chip>
+                                        )}
                                     </CardBody>
                                     <Divider />
                                     <CardFooter>

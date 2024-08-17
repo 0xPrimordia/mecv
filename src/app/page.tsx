@@ -110,7 +110,7 @@ function HomeContent() {
             <Button color="primary" className="w-full" onClick={evaluate}>Evaluate</Button>
           )}
           {(username) && (
-            <Link className="w-full underline text-xs" href={`/user/${username}`}>View Profile</Link>
+            <Link className="w-full underline mb-2" href={`/user/${username}`}>View Profile</Link>
           )}
         </CardFooter>
       </Card>
