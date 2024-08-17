@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/parser": "^7.25.3",
     "@babel/traverse": "^7.25.3",
+    "@heroicons/react": "^2.1.5",
     "@nextui-org/react": "^2.4.6",
     "axios": "^1.7.3",
     "next": "14.2.5",

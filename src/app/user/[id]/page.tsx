@@ -4,6 +4,7 @@ import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip } from
 import Image from "next/image";
 import Link from "next/link";
 import { fetchUser, fetchUserRepositories, fetchUserGists } from "@/app/utils/githubApi";
+import { ChartBarSquareIcon } from "@heroicons/react/24/outline";
 
 type Props = {
     params: { id: string }
@@ -94,7 +95,8 @@ export default function UserPage({ params }: Props) {
 
                      <Card shadow="none" className="w-[400px] bg-transparent border-solid border-4 border-gray-300">
                         <CardHeader>
-                            <h3 className="font-bold my-1">Skill Level</h3>
+                            <h3 className="font-bold my-1 mr-2">Skill Level</h3>
+                            <ChartBarSquareIcon className="w-6 h-6" />
                         </CardHeader>
                       
                         <CardBody>
