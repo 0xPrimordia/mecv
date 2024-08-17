@@ -101,8 +101,8 @@ function HomeContent() {
             </Select>
           )}
         </CardBody>
-        <Divider />
-        <CardFooter className="flex flex-col text-center gap-3">
+        
+        <CardFooter className="flex flex-col text-center gap-2">
           {(!username && !repository && (
             <p className="text-gray-400 italic">Enter any valid GitHub username to get started.</p>
           ))}
