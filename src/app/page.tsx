@@ -85,7 +85,7 @@ function HomeContent() {
         width={255}
         className="mb-10"
       />
-      <Card className="w-[450px]">
+      <Card radius="sm" shadow="sm" className="w-[450px] border-1 border-gray-300">
         {(urlRepository) && (
           <CardHeader className="flex flex-col gap-3">
             <p className="text-sm text-gray-500">Evaluating {urlRepository}</p>
