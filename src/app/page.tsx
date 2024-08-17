@@ -92,7 +92,7 @@ function HomeContent() {
           </CardHeader>
         )}
         <CardBody className="gap-3">
-          <Input placeholder="Enter your GitHub username" label="GitHub Username" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <Input placeholder="@" label="GitHub Username" type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
           {(!urlRepository && userRepositories && userRepositories.length > 0) && (
             <Select placeholder="Select a repository" label="Evaluate Repository" id="repository" name="repository" value={repository} onChange={(e) => setRepository(e.target.value)}>
               {userRepositories.map((repository) => (
