@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip, Chip } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip, Chip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Input } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchUser, fetchUserRepositories, fetchUserGists } from "@/app/utils/githubApi";
@@ -15,6 +15,7 @@ export default function UserPage({ params }: Props) {
     const [userRepositories, setUserRepositories] = useState<any>(null);
     const [userGists, setUserGists] = useState<any>(null);
     const [userLanguages, setUserLanguages] = useState<any>(null);
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     useEffect(() => {
         const getUser = async () => {
@@ -171,13 +172,26 @@ export default function UserPage({ params }: Props) {
                             ))} 
                         </div>
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
-                            <Button className="mb-4 bg-pink-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Profile</Button>
+                            <Button onPress={onOpen} className="mb-4 bg-pink-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Profile</Button>
                             <p className="italic">If you have a GitHub account, connect to claim your free MeCV profile (more git options coming soon).</p>
                             <p className="italic">Once connected you can select which repositories to feature, filter, sort and much more...</p>
                         </div>
                     </div>
 
-                    
+                    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                        <ModalContent>
+                            <ModalHeader>
+                                <h3 className="font-bold text-2xl">Apply for Closed Beta</h3>
+                            </ModalHeader>
+                            <ModalBody>
+                                <p>Apply for closed beta access to MeCV.</p>
+                                <Input label="Email" />
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button>Apply for Beta</Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
                 </>
             )}
             </>
