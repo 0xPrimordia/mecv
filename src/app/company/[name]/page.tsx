@@ -4,6 +4,7 @@ import { Card, CardHeader, CardFooter, CardBody, Divider, Button } from "@nextui
 import Image from "next/image";
 import Link from "next/link";
 import { fetchCompany, fetchOrganizationRpositories } from "@/app/utils/githubApi";
+import { ChartBarSquareIcon } from "@heroicons/react/24/outline";
 
 type Props = {
     params: {
@@ -53,7 +54,8 @@ export default function CompanyPage({ params }: Props) {
                         </Card>
                         <Card shadow="none" className="w-[380px] bg-transparent border-solid border-4 border-gray-300">
                             <CardHeader>
-                                <h2 className="font-bold text-lg">Code Difficulty</h2>
+                                <h2 className="font-bold text-lg mr-2">Code Difficulty</h2>
+                                <ChartBarSquareIcon className="w-6 h-6" />
                             </CardHeader>
                             <CardBody>
                                 <p className="text-sm">Sign up for fine-grained code difficulty analysis. Every single commit is analyzed to determine the difficulty level of the code.</p>
