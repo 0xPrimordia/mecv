@@ -35,7 +35,7 @@ export default function CompanyPage({ params }: Props) {
                     <div className="flex flex-row gap-4">
                         <Card shadow="sm" className="w-[380px]">
                             <CardHeader>
-                                <Image src={company?.avatar_url} alt={company?.name} width={45} height={45} />
+                                <Image className="rounded-full" src={company?.avatar_url} alt={company?.name} width={45} height={45} />
                                 <div className="flex flex-row ml-4 gap-2">
                                     <span><Link className="underline text-pink-500 text-md" target="_blank" href={`mailto:${company?.billing_email}`}>Email</Link></span>
                                     <span><Link className="underline text-pink-500 text-md" target="_blank" href={company?.url}>Website</Link></span>
