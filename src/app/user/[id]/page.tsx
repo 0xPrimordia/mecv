@@ -71,7 +71,7 @@ export default function UserPage({ params }: Props) {
                     <div className="flex gap-4">
                         <Card shadow="sm" className="w-[380px]">
                             <CardHeader className="flex gap-3">
-                            <Image src={user.avatar_url} alt={user.login} width={55} height={55} />
+                            <Image className="rounded-full" src={user.avatar_url} alt={user.login} width={55} height={55} />
                             <div className="flex flex-col">
                                 <h4 className="text-lg">{user.name}</h4>
                                 
