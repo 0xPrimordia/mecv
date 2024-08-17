@@ -76,7 +76,7 @@ export default function UserPage({ params }: Props) {
                                 
                                 {user.company && user.company.startsWith('@') && (
                                   <span className="text-xs">
-                                    <Link className="underline text-blue-500" href={`/company/${user.company.replace(/^@/, '')}`}>
+                                    <Link className="underline text-pink-500" href={`/company/${user.company.replace(/^@/, '')}`}>
                                       {user.company}
                                     </Link>
                                   </span>
@@ -103,7 +103,7 @@ export default function UserPage({ params }: Props) {
                         </CardHeader>
                       
                         <CardBody>
-                            <p className="text-sm">Connect GitHub to mint your skill level across many languages and every single commit in your history (including past private repos) based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-blue-500">Patterns</span></Tooltip>.</p>
+                            <p className="text-sm">Connect GitHub to mint your skill level across many languages and every single commit in your history (including past private repos) based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-pink-500">Patterns</span></Tooltip>.</p>
                         </CardBody>
                       
                         <CardFooter>
@@ -171,7 +171,7 @@ export default function UserPage({ params }: Props) {
                             ))} 
                         </div>
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
-                            <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Profile</Button>
+                            <Button className="mb-4 bg-pink-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Profile</Button>
                             <p className="italic">If you have a GitHub account, connect to claim your free MeCV profile (more git options coming soon).</p>
                             <p className="italic">Once connected you can select which repositories to feature, filter, sort and much more...</p>
                         </div>

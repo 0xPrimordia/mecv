@@ -37,8 +37,8 @@ export default function CompanyPage({ params }: Props) {
                             <CardHeader>
                                 <Image src={company?.avatar_url} alt={company?.name} width={45} height={45} />
                                 <div className="flex flex-row ml-4 gap-2">
-                                    <span><Link className="underline text-blue-500 text-md" target="_blank" href={`mailto:${company?.billing_email}`}>Email</Link></span>
-                                    <span><Link className="underline text-blue-500 text-md" target="_blank" href={company?.url}>Website</Link></span>
+                                    <span><Link className="underline text-pink-500 text-md" target="_blank" href={`mailto:${company?.billing_email}`}>Email</Link></span>
+                                    <span><Link className="underline text-pink-500 text-md" target="_blank" href={company?.url}>Website</Link></span>
                                 </div>
                             </CardHeader>
                             <Divider />
@@ -106,7 +106,7 @@ export default function CompanyPage({ params }: Props) {
                             ))} 
                         </div>
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
-                            <Button className="mb-4 bg-blue-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Dashboard</Button>
+                            <Button className="mb-4 bg-pink-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Dashboard</Button>
                             <p className="italic max-w-xl text-center">Claim your dashboard to scan code difficulty, connect your GitHub issues with qualified developers and keep your projects moving.</p>
                            
                         </div>
