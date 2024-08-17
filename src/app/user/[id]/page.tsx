@@ -60,9 +60,12 @@ export default function UserPage({ params }: Props) {
                 <>
                     <h1 className="font-bold text-2xl my-4">@{user.login}</h1>
                     <div className="flex flex-wrap mb-6">
-                        {userLanguages?.map((language: string) => (
-                            <span key={language} className={`text-sm w-fit inline-block rounded-full px-2 py-1 mr-2 text-white mb-2 ${language === 'JavaScript' ? 'bg-blue-500' : 'bg-gray-400'}`}>{language}</span>
-                        ))}
+                        <div className="flex items-center">
+                            {userLanguages?.map((language: string) => (
+                                <Chip key={language} size="lg" color="primary" className="mr-2">{language}</Chip>
+                            ))}
+                            <span className="text-xs italic ml-2">Sign-up to scan all your code language skills...</span>
+                        </div>
                     </div>
                     <div className="flex gap-4">
                         <Card shadow="sm" className="w-[380px]">
