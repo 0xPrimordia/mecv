@@ -114,7 +114,7 @@ export default function UserPage({ params }: Props) {
                                 <CardBody>
                                     <CardHeader className="flex flex-col">
                                     {(!userGists || userGists?.length === 0) && (
-                                        <h3 className="font-bold">You don&apos;t even GIST, bro?</h3>
+                                        <h3 className="font-bold text-3xl">You don&apos;t even GIST, bro?</h3>
                                     )}
                                     {userGists && userGists.length > 0 && (
                                         
