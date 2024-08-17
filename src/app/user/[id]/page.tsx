@@ -64,7 +64,7 @@ export default function UserPage({ params }: Props) {
                             {userLanguages?.map((language: string) => (
                                 <Chip key={language} size="lg" color="primary" className="mr-2">{language}</Chip>
                             ))}
-                            <span className="text-xs italic ml-2">Sign-up to scan all your code language skills...</span>
+                            <span className="text-xs italic ml-2">Sign-up to scan all of your code language skills...</span>
                         </div>
                     </div>
                     <div className="flex gap-4">
