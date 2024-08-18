@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip, Chip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Input } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export default function UserPage({ params }: Props) {
+    const { data: session } = useSession();
+    const [isOwner, setIsOwner] = useState<boolean>(false);
     const [user, setUser] = useState<any>(null);
     const [userRepositories, setUserRepositories] = useState<any>(null);
     const [userGists, setUserGists] = useState<any>(null);
@@ -20,6 +23,7 @@ export default function UserPage({ params }: Props) {
     useEffect(() => {
         const getUser = async () => {
             const userData = await fetchUser(params.id);
+            if(!userData) return;
             setUser(userData);
         };
         const getUserGists = async () => {
@@ -31,6 +35,12 @@ export default function UserPage({ params }: Props) {
         getUserGists();
         
     }, [params.id]);
+
+    useEffect(() => {
+        if (user && session?.user?.name === user?.name) {
+            setIsOwner(true);
+        }
+    }, [session, user]);
 
     useEffect(() => {
         const getUserRepositories = async () => {
@@ -65,7 +75,12 @@ export default function UserPage({ params }: Props) {
                             {userLanguages?.map((language: string) => (
                                 <Chip key={language} size="lg" color="primary" className="mr-2">{language}</Chip>
                             ))}
-                            <span className="text-xs italic ml-2">Sign-up to scan all of your code language skills...</span>
+                            {!isOwner && (
+                                <span className="text-xs italic ml-2">Sign-up to scan all of your code language skills...</span>
+                            )}
+                            {isOwner && (
+                                <span className="text-xs italic ml-2">You are the owner of this profile.</span>
+                            )}
                         </div>
                     </div>
                     <div className="flex gap-4">
@@ -104,7 +119,7 @@ export default function UserPage({ params }: Props) {
                         </CardHeader>
                       
                         <CardBody>
-                            <p className="text-sm">Connect GitHub to mint your skill level across many languages and every single commit in your history (including past private repos) based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-pink-500">Patterns</span></Tooltip>.</p>
+                            <p className="text-sm">Connect GitHub to mint your skill level across many languages with a finne grained scan of every single commit in your history (including past private repos), based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-pink-500">Patterns</span></Tooltip>.</p>
                         </CardBody>
                       
                         <CardFooter>
