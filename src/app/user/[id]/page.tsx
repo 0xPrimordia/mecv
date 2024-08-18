@@ -119,11 +119,19 @@ export default function UserPage({ params }: Props) {
                         </CardHeader>
                       
                         <CardBody>
+                            {!isOwner ? (
                             <p className="text-sm">Connect GitHub to mint your skill level across many languages with a finne grained scan of every single commit in your history (including past private repos), based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-pink-500">Patterns</span></Tooltip>.</p>
+                            ) : (
+                                <p className="text-sm">Beginn a fine grained scan of all of your commits to determine your skill level.</p>
+                            )}
                         </CardBody>
                       
                         <CardFooter>
-                            <Button variant="bordered" className="w-fit">Claim Your Profile</Button>
+                            {!isOwner ? (
+                                <Button variant="bordered" className="w-fit">Claim Your Profile</Button>
+                            ) : (
+                                <Button variant="bordered" className="w-fit">Scan Your Commits</Button>
+                            )}
                         </CardFooter>
                      </Card>
 
