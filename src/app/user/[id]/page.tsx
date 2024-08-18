@@ -166,7 +166,7 @@ export default function UserPage({ params }: Props) {
                         <h3 className="font-bold my-4">Repositories</h3>
                         <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
                             {userRepositories?.map((repository: any, index: number) => (
-                                <Card shadow="none" isPressable={index < 4} className={`w-[250px] mb-4 ${index >= 4 ? 'opacity-20 z-[0]' : ''}`} key={repository.id}>
+                                <Card shadow="none" isPressable={index < 4} className={`w-[250px] mb-4 ${index >= 4 && !isOwner ? 'opacity-20 z-[0]' : ''}`} key={repository.id}>
                                     <CardHeader className="flex flex-col">
                                         <h3 className="text-sm"><span className="font-bold">{repository.name}</span></h3> 
                                     </CardHeader>
@@ -179,18 +179,20 @@ export default function UserPage({ params }: Props) {
                                     </CardBody>
                                     <Divider />
                                     <CardFooter>
-                                        <div className={`${index >= 4 ? 'opacity-0 z-[0]' : ''}`}>
+                                        <div className={`${index >= 4 && !isOwner ? 'opacity-0 z-[0]' : ''}`}>
                                             <Button radius="sm" variant="bordered" className="text-xs px-0 py-0 text-gray-400" onClick={() => window.location.href = `/?username=${user.login}&repo=${repository.name}`}>Evaluate</Button>
                                         </div>
                                     </CardFooter>
                                 </Card>
                             ))} 
                         </div>
+                        {!isOwner && (
                         <div className="flex flex-col items-center mt-[-170px] z-100 relative pb-[100px]">
                             <Button onPress={onOpen} className="mb-4 bg-pink-500 text-white text-xl px-8 py-8 font-bold mb-8">Claim Your Profile</Button>
                             <p className="italic">If you have a GitHub account, connect to claim your free MeCV profile (more git options coming soon).</p>
                             <p className="italic">Once connected you can select which repositories to feature, filter, sort and much more...</p>
                         </div>
+                        )}
                     </div>
 
                     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
