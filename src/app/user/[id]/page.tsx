@@ -122,7 +122,7 @@ export default function UserPage({ params }: Props) {
                             {!isOwner ? (
                             <p className="text-sm">Connect GitHub to mint your skill level across many languages with a finne grained scan of every single commit in your history (including past private repos), based on <Tooltip showArrow={true} placement="bottom" content="Patterns are a model for indentifying skills in your commit history."><span className="underline text-pink-500">Patterns</span></Tooltip>.</p>
                             ) : (
-                                <p className="text-sm">Beginn a fine grained scan of all of your commits to determine your skill level.</p>
+                                <p className="text-sm">Begin a fine grained scan of all of your commits to determine your skill level.</p>
                             )}
                         </CardBody>
                       
