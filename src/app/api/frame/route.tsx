@@ -17,16 +17,20 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get('userId');
 
     if (!userId) {
+        console.log('User ID is missing');
         return new Response('User ID is required', { status: 400 });
     }
 
     try {
+        console.log(`Fetching user data for userId: ${userId}`);
         const user = await fetchUserData(userId);
 
         if (!user) {
+            console.log(`User not found for userId: ${userId}`);
             return new Response('User not found', { status: 404 });
         }
 
+        console.log(`User data fetched successfully for userId: ${userId}`);
         return new ImageResponse(
         (
             <div tw="flex flex-col w-full h-full items-center justify-center bg-white">
@@ -78,12 +82,15 @@ export async function GET(request: NextRequest) {
 }
 
 async function fetchUserData(userId: string) {
-    // Implement your data fetching logic here
-    // This could be a database query or an external API call
-    // Return the user data or null if not found
-    const user = await fetchUser(userId);
-    if (!user) {
-        return null;
+    try {
+        const user = await fetchUser(userId);
+        if (!user) {
+            console.log(`No user found for userId: ${userId}`);
+            return null;
+        }
+        return user;
+    } catch (error) {
+        console.error(`Error in fetchUserData for userId ${userId}:`, error);
+        throw error; // Re-throw the error to be caught in the GET function
     }
-    return user;
 }
