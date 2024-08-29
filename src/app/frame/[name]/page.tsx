@@ -43,14 +43,14 @@ export default async function handler({ user }: ProfileFrameProps) {
       <p tw="flex text-2xl text-gray-600">
             {user.bio}  <p>{user.bio}</p>
       </p>
-      <div tw="flex rounded-md shadow">
+      <div tw="ml-5 flex rounded-md shadow">
         <a
-          tw="ml-5 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-5 text-1xl font-bold text-white"
+          tw="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-5 text-1xl font-bold text-white"
           >Followers: 50</a>
       </div>
       <div tw="ml-5 flex rounded-md shadow">
         <a
-          tw="flex items-center justify-center rounded-md border border-transparent bg-white px-5 text-1xl py-5  font-bold text-indigo-600"
+          tw="flex items-center justify-center rounded-md border border-transparent bg-white px-5 text-xl py-5  font-bold text-indigo-600"
           >Following: 135</a>
       </div>
     </div>
