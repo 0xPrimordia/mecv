@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
 import { Card, CardHeader, CardFooter, CardBody, Divider, Button, Tooltip, Chip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Input } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,25 @@ export default function UserPage({ params }: Props) {
     const [userGists, setUserGists] = useState<any>(null);
     const [userLanguages, setUserLanguages] = useState<any>(null);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function fetchImageUrl() {
+            try {
+                const response = await fetch(`/api/frame?userId=${params.id}`);
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                // Append a query parameter to simulate a .png ending
+                const imageUrlWithPngEnding = `${url}.png`;
+                setImageUrl(imageUrlWithPngEnding);
+                console.log("Fetched imageUrl:", imageUrlWithPngEnding); // Debugging line
+            } catch (error) {
+                console.error("Error fetching imageUrl:", error);
+            }
+        }
+
+        fetchImageUrl();
+    }, [params.id]);
 
     useEffect(() => {
         const getUser = async () => {
@@ -62,8 +82,43 @@ export default function UserPage({ params }: Props) {
         setUserLanguages(languages);
     },[userRepositories]);
 
+    useEffect(() => {
+        if (imageUrl) {
+            const metaTags = [
+                { name: "fc:frame", content: "vNext" },
+                { name: "fc:frame:image", content: imageUrl },
+                { name: "of:accepts:xmtp", content: "2024-02-01" },
+                { property: "og:title", content: "Zurf 🏄‍♂️" },
+                { property: "og:description", content: "🤍 Building the funniest web3 social app." },
+                { property: "og:image", content: imageUrl }
+            ];
+
+            metaTags.forEach(tag => {
+                const meta = document.createElement('meta'); // Create the meta element
+                (Object.keys(tag) as (keyof typeof tag)[]).forEach(key => {
+                    if (tag[key]) {
+                        meta.setAttribute(key, tag[key] as string);
+                    }
+                });
+                document.head.appendChild(meta);
+            });
+        }
+    }, [imageUrl]);
+
     return (
         <div>
+            <Head>
+                {imageUrl && (
+                    <>
+                        <meta name="fc:frame" content="vNext" />
+                        <meta name="fc:frame:image" content={imageUrl} />
+                        <meta name="of:accepts:xmtp" content="2024-02-01" />
+                        <meta property="og:title" content="Zurf 🏄‍♂️" />
+                        <meta property="og:description" content="🤍 Building the funniest web3 social app." />
+                        <meta property="og:image" content={imageUrl} />
+                    </>
+                )}
+            </Head>
             <>
             {!user ? (
                 <div>Loading...</div>
