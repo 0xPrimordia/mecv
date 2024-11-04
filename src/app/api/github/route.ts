@@ -1,11 +1,11 @@
 import { App } from 'octokit';
 
-const GITHUB_APP_ID = process.env.GITHUB_APP_ID;
+const GITHUB_ID = process.env.GITHUB_ID;
 const GITHUB_PRIVATE_KEY = process.env.GITHUB_PRIVATE_KEY;
 const INSTALLATION_ID = process.env.GITHUB_INSTALLATION_ID as unknown as number;
 
 const app = new App({
-  appId: GITHUB_APP_ID!,
+  appId: GITHUB_ID!,
   privateKey: GITHUB_PRIVATE_KEY!,
 });
 
@@ -41,10 +41,10 @@ export async function GET(request: Request) {
   }
 
   console.log('Environment variables check:', {
-    hasAppId: !!GITHUB_APP_ID,
+    hasAppId: !!GITHUB_ID,
     hasPrivateKey: !!GITHUB_PRIVATE_KEY,
     hasInstallationId: !!INSTALLATION_ID,
-    appId: GITHUB_APP_ID,
+    appId: GITHUB_ID,
     installationId: INSTALLATION_ID,
     // Don't log the actual private key, just its length
     privateKeyLength: GITHUB_PRIVATE_KEY?.length
