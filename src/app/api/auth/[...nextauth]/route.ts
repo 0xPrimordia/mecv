@@ -14,10 +14,15 @@ const handler = NextAuth({
         }),
     ],
     callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            console.log('Sign in attempt:', { user, account, profile, email });
+            return true;
+        },
         async jwt({ token, account, profile }) {
             if (account && profile) {
                 token.githubProfile = profile;
             }
+            console.log('JWT callback:', { token, account, profile });
             return token;
         },
         async session({ session, token }) {
@@ -25,11 +30,12 @@ const handler = NextAuth({
                 ...session.user,
                 ...(token.githubProfile as object),
             };
+            console.log('Session callback:', { session, token });
             return session;
         },
     },
     secret: process.env.NEXTAUTH_SECRET,
-    debug: process.env.NODE_ENV === 'development',
+    debug: true, // Enable debug logs
 });
 
 export { handler as GET, handler as POST };
