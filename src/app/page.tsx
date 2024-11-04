@@ -43,38 +43,32 @@ function HomeContent() {
 
   useEffect(() => {
     const getUserRepositories = async () => {
+        if (!username) return;
         const userRepositories = await fetchUserRepositories(username);
         setUserRepositories(userRepositories);
     };
     getUserRepositories();
 }, [username]);
 
-  const selectLanguage = (e: any) => {
-    if(!e) return;
-    const language = languages.find((language) => language.id === e);
-    if(!language) return;
-    setLanguage(language);
-  }
-
-  const evaluate = async () => {
-    try {
-      const response = await fetch(`/api/evaluate/?owner=${username}&repo=${repository}`, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ owner: username, repo: repository })
-      });
-    
-      if (!response.ok) {
-        throw new Error('Failed to evaluate repository');
-      }
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+const evaluate = async () => {
+  try {
+    const response = await fetch(`/api/evaluate/?owner=${username}&repo=${repository}`, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ owner: username, repo: repository })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to evaluate repository');
     }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
   }
+}
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
