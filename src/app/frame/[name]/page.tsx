@@ -1,7 +1,5 @@
 "use client";
 import { ImageResponse } from 'next/og';
-//import fs from "fs";
-//import path from "path";
 import { useEffect } from "react";
 
 export const runtime = 'edge';
