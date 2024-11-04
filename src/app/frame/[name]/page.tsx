@@ -1,13 +1,13 @@
 "use client";
 import { ImageResponse } from 'next/og';
-import fs from "fs";
-import path from "path";
+//import fs from "fs";
+//import path from "path";
 import { useEffect } from "react";
 
 export const runtime = 'edge';
 
-const RobotoMono = fs.readFileSync(path.resolve("./public/fonts/RobotoMono-Regular.ttf"));
-const RobotoMonoBold = fs.readFileSync(path.resolve("./public/fonts/RobotoMono-Bold.ttf"));
+//const RobotoMono = fs.readFileSync(path.resolve("./public/fonts/RobotoMono-Regular.ttf"));
+//const RobotoMonoBold = fs.readFileSync(path.resolve("./public/fonts/RobotoMono-Bold.ttf"));
 
 interface ProfileFrameProps {
     user: {
@@ -62,13 +62,13 @@ export default async function handler({ user }: ProfileFrameProps) {
     {
         fonts: [
             {
-                data: Buffer.from(RobotoMono),
+                //data: Buffer.from(RobotoMono),
                 name: "Roboto Mono",
                 style: "normal",
                 weight: 400,
             },
             {
-                data: Buffer.from(RobotoMonoBold),
+                //data: Buffer.from(RobotoMonoBold),
                 name: "Roboto Mono",
                 style: "normal",
                 weight: 700,
