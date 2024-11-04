@@ -14,7 +14,7 @@ interface ProfileFrameProps {
     }
 }
 
-export default async function handler({ user }: ProfileFrameProps) {
+export default async function handler(/*{ user }: ProfileFrameProps*/) {
 
    /* return new ImageResponse(
         <div tw="flex flex-col w-full h-full items-center justify-center bg-white">
