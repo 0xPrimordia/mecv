@@ -1,5 +1,5 @@
 "use client";
-import { ImageResponse } from 'next/og';
+
 import { useEffect } from "react";
 
 export const runtime = 'edge';
@@ -16,7 +16,7 @@ interface ProfileFrameProps {
 
 export default async function handler({ user }: ProfileFrameProps) {
 
-    return new ImageResponse(
+   /* return new ImageResponse(
         <div tw="flex flex-col w-full h-full items-center justify-center bg-white">
             <div tw="bg-gray-50 flex w-full">
                 <div
@@ -74,5 +74,5 @@ export default async function handler({ user }: ProfileFrameProps) {
         ],
         width: 1200,
         height: 630,
-    }
+    } */
 }
