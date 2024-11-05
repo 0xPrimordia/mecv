@@ -31,9 +31,14 @@ const Header = () => {
                     {session ? (
                         <Button onClick={() => signOut()}>Disconnect GitHub</Button>
                     ) : (
-                        <Button className="bg-black text-white" radius="sm" onClick={() => signIn()}>Connect Your GitHub</Button>
+                        <Button 
+                            className="bg-black text-white" 
+                            radius="sm" 
+                            onClick={() => signIn(undefined, { callbackUrl: '/dashboard' })}
+                        >
+                            Connect Your GitHub
+                        </Button>
                     )}
-                    <Button radius="sm">Connect Your Wallet</Button>
                 </div>
            
         </header>
