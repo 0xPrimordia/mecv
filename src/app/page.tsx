@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Card, Divider, CardHeader, CardFooter, CardBody, Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { fetchUserRepositories } from "@/app/utils/githubApi";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface Language {
   id: string;
@@ -32,6 +34,8 @@ function HomeContent() {
   const [language, setLanguage] = useState<Language|undefined>(undefined);
   const [userRepositories, setUserRepositories] = useState<any[]>([]);
   const searchParams = useSearchParams();
+  const { status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const urlUsername = searchParams.get('username');
@@ -49,6 +53,12 @@ function HomeContent() {
     };
     getUserRepositories();
 }, [username]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/dashboard");
+    }
+  }, [status, router]);
 
 const evaluate = async () => {
   try {
