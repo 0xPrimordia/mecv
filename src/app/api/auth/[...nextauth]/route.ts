@@ -8,7 +8,7 @@ const handler = NextAuth({
             clientSecret: process.env.GITHUB_SECRET as string,
             authorization: {
                 params: {
-                    scope: 'read:user user:email'
+                    scope: 'read:user user:email repo repo:status repo:deployment'
                 }
             },
         }),
@@ -21,6 +21,9 @@ const handler = NextAuth({
         async jwt({ token, account, profile }) {
             if (account && profile) {
                 token.githubProfile = profile;
+            }
+            if (account) {
+                token.accessToken = account.access_token;
             }
             console.log('JWT callback:', { token, account, profile });
             return token;

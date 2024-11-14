@@ -10,11 +10,11 @@ const Header = () => {
     const { data: session, status } = useSession();
     const pathname = usePathname();
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (session) {
             console.log("User data:", session.user);
         }
-    }, [session]);
+    }, [session]);*/
 
     if (status === "loading") {
         return <div>Loading...</div>;
