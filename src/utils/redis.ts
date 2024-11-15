@@ -13,6 +13,14 @@ export function getRedisClient() {
       redis = new Redis(process.env.REDIS_URL, {
         maxRetriesPerRequest: null,
         enableReadyCheck: false,
+        retryStrategy(times) {
+          const delay = Math.min(times * 50, 2000);
+          return delay;
+        },
+        tls: {
+          rejectUnauthorized: true,
+          ca: process.env.REDIS_CA_CERT
+        }
       });
       
       redis.on('error', (error) => {
@@ -40,6 +48,13 @@ export function getQueue(name: string) {
           type: 'exponential',
           delay: 1000,
         },
+        removeOnComplete: {
+          age: 24 * 3600, // Keep completed jobs for 24 hours
+          count: 1000     // Keep last 1000 completed jobs
+        },
+        removeOnFail: {
+          age: 24 * 3600  // Keep failed jobs for 24 hours
+        }
       },
     });
   } catch (error) {
